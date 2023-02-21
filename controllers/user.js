@@ -139,6 +139,12 @@ const getFollowers = async (req, res) => {
   }
 };
 
+const searchUser = async (req, res) => {
+  const {name} = req.body;
+  const users = await User.find({ name: { $regex: name, $options: "i" } });
+  res.status(200).json(users);
+}
+
 module.exports = {
   updateUser,
   deleteUser,
@@ -148,4 +154,5 @@ module.exports = {
   unfollowUser,
   getFollowings,
   getFollowers,
+  searchUser,
 };
